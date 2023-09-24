@@ -19,14 +19,14 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::prefix('/admin')->namespace('Admin')->group([ 'as'=>'admin.'], function(){
+Route::group([ 'prefix' => 'admin', 'namespace'=>'Admin', 'as' => 'admin.'],function() {
     Route::match(['get', 'POST'], '/', 'AdminController@login')->name('login');
 
     Route::group(['middleware' => ['admin']], function(){
 
         Route::get('dashboard', 'AdminController@dashboard')->name('dashboard');
         Route::get('logout', 'AdminController@logout')->name('logout');
-        Route::get('settings', 'AdminController@setting')->name('');
+        Route::get('settings', 'AdminController@setting')->name('setting');
         Route::post('check-current-pwd', 'AdminController@chkCurrentPassword')->name('check.current.password');
         Route::post('update-current-pwd', 'AdminController@updateCurrentPassword')->name('update.current.password');
         Route::match(['get', 'post'], 'update-admin-details', 'AdminController@updateAdminDetails')->name('update.admin.details');
@@ -77,27 +77,27 @@ Route::prefix('/admin')->namespace('Admin')->group([ 'as'=>'admin.'], function()
         Route::get('delete-banner-image/{id}', 'BannersController@deleteBannerImage')->name('delete.banner.image');
 
         //coupons
-        Route::get('/coupons', 'CouponsController@coupons')->name('');
-        Route::post('/update-coupon-status', 'CouponsController@updateCouponStatus')->name('');
-        Route::get('delete-coupon/{id}', 'CouponsController@deleteCoupon')->name('');
-        Route::match(['get', 'post'], 'add-edit-coupons/{id?}', 'CouponsController@addEditCoupon')->name('');
+        Route::get('/coupons', 'CouponsController@coupons')->name('coupons');
+        Route::post('/update-coupon-status', 'CouponsController@updateCouponStatus')->name('update.coupon.status');
+        Route::get('delete-coupon/{id}', 'CouponsController@deleteCoupon')->name('delete.coupon');
+        Route::match(['get', 'post'], 'add-edit-coupons/{id?}', 'CouponsController@addEditCoupon')->name('add.edit.coupons');
         
         //orders
-        Route::get('/orders', 'OrdersController@orders')->name('');
+        Route::get('/orders', 'OrdersController@orders')->name('orders');
         //order details amdin
-        Route::get('/orders/{id}','OrdersController@orderDetails')->name(''); 
-        Route::post('/update-order-status', 'OrdersController@updateOrderStatus')->name('');
+        Route::get('/orders/{id}','OrdersController@orderDetails')->name('orders.details'); 
+        Route::post('/update-order-status', 'OrdersController@updateOrderStatus')->name('update.order.status');
         //view order invoice
-        Route::get('/view-order-invoice/{id}', 'OrdersController@viewOrderInvoice')->name('');
+        Route::get('/view-order-invoice/{id}', 'OrdersController@viewOrderInvoice')->name('view.order.invoice');
         //print pdf file
-        Route::get('/print-pdf-invoice/{id}', 'OrdersController@printPdfInvoice')->name('');
+        Route::get('/print-pdf-invoice/{id}', 'OrdersController@printPdfInvoice')->name('print.pdf.invoice');
         
         //shipping charges
-        Route::get('/shipping-charges', 'ShippingController@shippingCharge')->name('');
+        Route::get('/shipping-charges', 'ShippingController@shippingCharge')->name('shipping.changes');
         //edit shipping charge
-        Route::match(['get', 'post'], '/edit_shipping_charges/{id}', 'ShippingController@editShippingCharge')->name('');
-        Route::post('/update-shipping-status', 'ShippingController@updateShippingStatus')->name(''); 
-    })->name('');
+        Route::match(['get', 'post'], '/edit_shipping_charges/{id}', 'ShippingController@editShippingCharge')->name('edit.shipping.charges');
+        Route::post('/update-shipping-status', 'ShippingController@updateShippingStatus')->name('update.shipping.status'); 
+    });
 
 });
 
@@ -106,66 +106,64 @@ Route::namespace('Front')->group(function(){
     Route::get('/', 'IndexController@index')->name('index');
     //get category urls
     $catUrls = Category::select('url')->where('status', 1)->get()->pluck('url')->toArray();
-    // echo "<pre>"; print_r($catUrls); 
     foreach($catUrls as $url)
     {
         Route::get('/'.$url, 'ProductsController@listing');
-        // echo "<pre>"; print_r($url); 
     }
     //product details
-    Route::get('/product/{id}', 'ProductsController@details');
+    Route::get('/product/{id}', 'ProductsController@details')->name('product.details');
     //getting price according to size
-    Route::post('/getting-product-price', 'ProductsController@getProductPrice');
+    Route::post('/getting-product-price', 'ProductsController@getProductPrice')->name('getting.product.price');
     //add to cart
-    Route::post('add-to-cart', 'ProductsController@addtoCart');
+    Route::post('add-to-cart', 'ProductsController@addtoCart')->name('add.cart');
     //shopping cart rout
-    Route::get('/cart', 'ProductsController@cart');
+    Route::get('/cart', 'ProductsController@cart')->name('cart');
     //update cart item quantity
-    Route::post('/update-cart-item-qty', 'ProductsController@updateCartItem');
+    Route::post('/update-cart-item-qty', 'ProductsController@updateCartItem')->name('update.cart.item.qty');
     //delete cart item
-    Route::post('/delete-cart-item', 'ProductsController@deleteCartItem');
+    Route::post('/delete-cart-item', 'ProductsController@deleteCartItem')->name('delete.cart.item');
     //login/register
-    Route::get('/login-register', ['as'=>'login', 'uses'=>'UsersController@loginRegister']);
+    Route::get('/login-register', ['as'=>'login', 'uses'=>'UsersController@loginRegister'])->name('login.register');
     //check user email existance
-    Route::match(['get', 'post'], '/check-email', 'UsersController@checkEmail');
+    Route::match(['get', 'post'], '/check-email', 'UsersController@checkEmail')->name('check.email');
     //login
-    Route::post('/login', 'UsersController@userLogin');
+    Route::post('/login', 'UsersController@userLogin')->name('login');
     //register
-    Route::post('/register', 'UsersController@userRegister');
+    Route::post('/register', 'UsersController@userRegister')->name('register');
     //logout
-    Route::get('/logout', 'UsersController@logoutUser');
+    Route::get('/logout', 'UsersController@logoutUser')->name('logout');
     //confirm email
-    Route::match(['get', 'post'], '/confirm/{code}', 'UsersController@confirmAccount');
+    Route::match(['get', 'post'], '/confirm/{code}', 'UsersController@confirmAccount')->name('confirm');
     //user forgot password
-    Route::match(['get', 'post'], '/forgot-password', 'UsersController@forgotPassword');
+    Route::match(['get', 'post'], '/forgot-password', 'UsersController@forgotPassword')->name('forgot.password');
     //search products
-    Route::get('/search-products', 'ProductsController@listing');
+    Route::get('/search-products', 'ProductsController@listing')->name('search.products');
     //middleware auth
 
     Route::group(['middleware'=>['auth']], function(){
         
         //user account 
-        Route::match(['get', 'post'], '/account', 'UsersController@account');
+        Route::match(['get', 'post'], '/account', 'UsersController@account')->name('account');
         //orders
-        Route::get('/orders', 'OrdersController@orders');
+        Route::get('/orders', 'OrdersController@orders')->name('orders');
         //view order details
-        Route::get('/order-details/{id?}', 'OrdersController@orderDetails');
+        Route::get('/order-details/{id?}', 'OrdersController@orderDetails')->name('order.details');
         //check current password
-        Route::post('/check-user-pwd', 'UsersController@checkeUserPwd');
+        Route::post('/check-user-pwd', 'UsersController@checkeUserPwd')->name('check.user.password');
         //update user password
-        Route::post('/update-user-pwd', 'UsersController@updateUserPwd');
+        Route::post('/update-user-pwd', 'UsersController@updateUserPwd')->name('update.user.password');
         //apply coupon\
-        Route::post('/apply-coupon', 'ProductsController@applyCoupon');
+        Route::post('/apply-coupon', 'ProductsController@applyCoupon')->name('apply.coupon');
         //checkout
-        Route::match(['get', 'post'], '/checkout', 'ProductsController@checkout');
+        Route::match(['get', 'post'], '/checkout', 'ProductsController@checkout')->name('checkout');
         //add edit delivery address by user
-        Route::match(['get', 'post'], '/add-edit-delivery-address/{id?}', 'ProductsController@addEditDeliveryAddress');
+        Route::match(['get', 'post'], '/add-edit-delivery-address/{id?}', 'ProductsController@addEditDeliveryAddress')->name('add.edit.delivery.address');
         //delete delivery address
-        Route::get('/delete-delivery-address/{id?}', 'ProductsController@deleteDeliveryAddress');
+        Route::get('/delete-delivery-address/{id?}', 'ProductsController@deleteDeliveryAddress')->name('delete.delivery.address');
         //thanks page
-        Route::get('/thanks', 'ProductsController@thanks');
+        Route::get('/thanks', 'ProductsController@thanks')->name('thanks');
         //khalti page
-        Route::get('/khalti', 'KhaltiController@khalti');
+        Route::get('/khalti', 'KhaltiController@khalti')->name('khalti');
         
     });
 

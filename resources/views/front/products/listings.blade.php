@@ -3,14 +3,11 @@
 @section('content')
 <div class="span9">     
 			<ul class="breadcrumb">
-				<li><a href="index.html">Home</a> <span class="divider">/</span></li>
+				<li><a href="{{route('index')}}">Home</a> <span class="divider">/</span></li>
 				<li class="active"><?php echo $categoryDetails['breadcrumbs']; ?></li>
 			</ul>
 			<h3>{{ $categoryDetails['categoryDetails']['category_name'] }} <small class="pull-right">{{ count($categoryProducts) }} products are available </small></h3>
-			<hr class="soft"/>
-			<p>
-				{{ $categoryDetails['categoryDetails']['description'] }}
-			</p>
+
 			@if(Session::has('success_message'))
 						<div class="alert alert-success" role="alert">
 					{{ Session::get('success_message') }}
@@ -35,8 +32,6 @@
 							<label class="control-label alignL">Sort By </label>
 							<select name="sort" id="sort">
 							<option value="">Select</option>
-							<option value="latest_product" @if(isset($_GET["sort"]) && $_GET["sort"] == 
-							"latest_product") selected="" @endif >Latest Product</option>
 								<option value="price_low_to_high" @if(isset($_GET["sort"]) && $_GET["sort"] == 
 							"price_low_to_high") selected="" @endif>Price: Low to High</option>
 								<option value="price_high_to_low"
@@ -56,6 +51,9 @@
 			<div class="tab-content filter_products">
 				@include('front.products.ajax_products_listings')
 			</div>
+			<p>
+				{{ $categoryDetails['categoryDetails']['description'] }}
+			</p>
 			<!-- <a href="compair.html" class="btn btn-large pull-right">Compare Product</a> -->
 			@if(!isset($_REQUEST['search']))
 			<div class="pagination">

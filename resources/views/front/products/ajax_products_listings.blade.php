@@ -1,5 +1,5 @@
 <?php
-use App\Product;
+use App\Product; 
 ?>
 <div class="tab-pane  active" id="blockView">
 					<ul class="thumbnails">

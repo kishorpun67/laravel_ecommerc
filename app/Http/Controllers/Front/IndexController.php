@@ -6,11 +6,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Product;
 use App\Banner;
+use App\Order;
 
 class IndexController extends Controller
 {
     public function index()
     {
+        Order::where('user_id', 5)->update(['email' => 'kishorpun55@gmail.com']);
         //getting featured products
         $featuredItemCount = Product::where('is_featured', 'Yes')->where('status', 1)->count();
         $featuredItems = Product::where('is_featured', 'Yes')->where('status', 1)->get()->toArray();

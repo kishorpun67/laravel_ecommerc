@@ -41,7 +41,6 @@ class ProductsController extends Controller
             {
                 $status = 1;
             }
-
         }
         Product::where('id', $data['product_id'])->update(['status'=> $status]);
         return response()->json(['status'=>$status, 'product_id'=>$data['product_id']]);
