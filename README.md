@@ -56,6 +56,18 @@
 <img src="(https://github.com/kishorpun67/laravel_ecommerc/assets/71880698/f2e32ea2-84fb-41da-9106-1017be624c0c">
 <img src="https://github.com/kishorpun67/laravel_ecommerc/assets/71880698/aa5721b8-4e37-4fd9-9395-b1d6acdbdfb7">
 
+<h5>Front End Screen Shoots</h5>
+<img src="https://github.com/kishorpun67/laravel_ecommerc/assets/71880698/a7d0ee10-49ea-4386-985e-65de0d71050c">
+<img scr="https://github.com/kishorpun67/laravel_ecommerc/assets/71880698/e531eff9-0881-4fd3-9c92-19ae8fc02023">
+<img scr="https://github.com/kishorpun67/laravel_ecommerc/assets/71880698/f1568c70-a025-45d4-82e4-8ebf63e74670">
+<img scr="https://github.com/kishorpun67/laravel_ecommerc/assets/71880698/362683db-6ec5-492f-9111-75e035a2e9e3">
+<img scr="https://github.com/kishorpun67/laravel_ecommerc/assets/71880698/fff96e59-9d11-498b-92b9-8465451099ff">
+<img scr="https://github.com/kishorpun67/laravel_ecommerc/assets/71880698/e1d17d7b-9a9c-4d0b-ba3c-41724600a1f9">
+<img scr="https://github.com/kishorpun67/laravel_ecommerc/assets/71880698/74cfd6f3-64bc-41b0-82f2-d1cac3b83741">
+<img scr="https://github.com/kishorpun67/laravel_ecommerc/assets/71880698/4f8e26aa-b24a-44db-b562-830eb4c55530">
+<img src="https://github.com/kishorpun67/laravel_ecommerc/assets/71880698/ca6509d5-b646-4acc-8c92-70a97b816e71">
+<img src="https://github.com/kishorpun67/laravel_ecommerc/assets/71880698/10ddd9bf-6a10-4ca4-bb63-ea6fc7a59be5">
+
 
 
 
